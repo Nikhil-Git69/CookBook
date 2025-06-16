@@ -15,6 +15,7 @@ class _navPagesState extends State<navPages> {
   final List<Widget> pages = [Homepage(), createPage()];
 
   void _onNavPageTapped(int index) {
+    Navigator.of(context).maybePop();
     setState(() {
       _currentIndex = index;
     });
@@ -33,10 +34,7 @@ class _navPagesState extends State<navPages> {
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.house), label: "Home"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fastfood),
-            label: "Create Recipe",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.fastfood), label: "Create Recipe",),
 
         ],
         type: BottomNavigationBarType.fixed,

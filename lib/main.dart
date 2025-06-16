@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'landingScr.dart';
-void main() {
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+import 'recipeModel.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(RecipeAdapter());
+  await Hive.openBox<Recipe>('Rbox');
   runApp(const MyApp());
 }
 

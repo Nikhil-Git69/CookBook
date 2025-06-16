@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'recipeModel.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class createPage extends StatefulWidget {
   const createPage({super.key});
@@ -12,10 +15,45 @@ class _createPageState extends State<createPage> {
   final TextEditingController ingredientsController = TextEditingController();
     final TextEditingController instructionsController = TextEditingController();
 
-   final List<String> categories = ['Breakfast', 'Lunch', 'Dinner', 'Snacks', 'Dessert', 'Others'];
-   String? selectedCategory;
+   final List<String> categories = ['Breakfast', 'Lunch', 'Dinner', 'Snacks', 'Dessert'];
 
-  @override
+   String? selectedCategory = 'Lunch';
+
+
+   var box = Hive.box<Recipe>('Rbox');
+
+
+
+void ClearFields(){
+   recipeNameController.clear();
+   ingredientsController.clear();
+   instructionsController.clear();
+}
+
+Future<void> SaveRecipe() async {
+  if (recipeNameController.text.isEmpty || ingredientsController.text.isEmpty ||
+      instructionsController.text.isEmpty || selectedCategory == null)
+  {
+    Fluttertoast.showToast(msg: "Please fill out all the forms");
+    return;
+  }
+
+  var newRecipe = Recipe(
+    recipeName: recipeNameController.text,
+    ingredients: ingredientsController.text,
+    instructions: instructionsController.text,
+    category: selectedCategory!,
+  );
+
+    await box.add(newRecipe);
+
+  ClearFields();
+  Fluttertoast.showToast(msg: "Recipe Saved");
+
+
+}
+
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
@@ -83,18 +121,18 @@ class _createPageState extends State<createPage> {
             ]
         ),
       ),
-      backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white, size: 40),
         backgroundColor: Colors.black,
         centerTitle: true,
         title: Text('Add a Taste of You',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-        ),),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),),
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -160,6 +198,8 @@ class _createPageState extends State<createPage> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
+                dropdownColor: Colors.white,
+
                 value: selectedCategory,
                 items: categories.map((category) {
                   return DropdownMenuItem<String>(
@@ -185,9 +225,12 @@ class _createPageState extends State<createPage> {
                   Expanded(
                     child: ElevatedButton(
 
-                      onPressed: () {},
+                      onPressed: () async
+                      {
+
+                      },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -204,15 +247,13 @@ class _createPageState extends State<createPage> {
                     child: ElevatedButton(
                       onPressed: ()
                       {
-                      recipeNameController.clear();
-                      ingredientsController.clear();
-                      instructionsController.clear();
+                        ClearFields();
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.black,
                       ),
                       child: Text("Clear",style: TextStyle(
                         color: Colors.white,
