@@ -44,17 +44,17 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFFFF8F0),
       drawer: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFFFF8F0),
         child: Column(
             children: [
               DrawerHeader(
-                decoration: BoxDecoration(color: Colors.black),
+                decoration: BoxDecoration(color: Color(0xFF8A9A74)),
                 child: Stack(
                   children: [
                     Center(
-                      child: Image.asset('assets/cookBook.png',height: 80,),
+                      child: Image.asset('assets/cookBook.png',height: 120,),
 
 
                     ),
@@ -69,16 +69,18 @@ class _HomepageState extends State<Homepage> {
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> Allrecipepage()));
                       },
-                      leading: Icon(Icons.menu_book),
+                      leading: Icon(Icons.menu_book, color: Color(0xFF56613A),),
                       title: Text('All Recipes',style: TextStyle(
+                        color: Color(0xFF56613A),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),),
 
                     ),    ListTile(
                       onTap: () {},
-                      leading: Icon(Icons.favorite),
+                      leading: Icon(Icons.favorite, color: Color(0xFF56613A)),
                       title: Text('Favorites',style: TextStyle(
+                        color: Color(0xFF56613A),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -90,8 +92,9 @@ class _HomepageState extends State<Homepage> {
                         Navigator.push(
                             context, MaterialPageRoute(builder: (context)=> SupportPage()));
                       },
-                      leading: Icon(Icons.support_agent_sharp),
+                      leading: Icon(Icons.support_agent_sharp, color: Color(0xFF56613A)),
                       title: Text('Contact Us',style: TextStyle(
+                        color: Color(0xFF56613A),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),),
@@ -99,8 +102,9 @@ class _HomepageState extends State<Homepage> {
                     ),
                     ListTile(
                       onTap: (){},
-                      leading: Icon(Icons.settings),
+                      leading: Icon(Icons.settings, color: Color(0xFF56613A)),
                       title: Text('Settings',style: TextStyle(
+                        color: Color(0xFF56613A),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),),
@@ -117,10 +121,14 @@ class _HomepageState extends State<Homepage> {
       ),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white, size: 40),
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFF8A9A74),
         centerTitle: true,
-        title: Image.asset('assets/cookBook.png',
-        height: 40,),
+        title: Text('MY COOKBOOK',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+       ),
 
 
       ),
@@ -132,40 +140,49 @@ class _HomepageState extends State<Homepage> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 190,
+                  height: 220,
                   decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: Color(0xFF8A9A74),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40),
+                    ),
                   ),
                   
                 ),
         
         Padding(
-          padding: const EdgeInsets.only(top: 30),
-          child: CarouselSlider(
-            options: CarouselOptions(
-              height:160,
-              aspectRatio:16 / 9,
-              enlargeCenterPage: true,
-              autoPlay: true,
-              viewportFraction: 0.7,
-            ),
-            items: List.generate(images.length, (index) {
-              return GestureDetector(
-                onTap: () {
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.asset(
-                    images[index],
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    errorBuilder: (
-                        context, error, stackTrace) => Center(
-                        child: Icon(Icons.broken_image)),
+          padding: const EdgeInsets.only(top: 40),
+          child: Material(
+            elevation: 8,
+            borderRadius: BorderRadius.circular(15),
+              color: Colors.transparent,
+            child: CarouselSlider(
+              options: CarouselOptions(
+                height:160,
+                aspectRatio:16 / 9,
+                enlargeCenterPage: true,
+                autoPlay: true,
+                viewportFraction: 0.7,
+              ),
+              items: List.generate(images.length, (index) {
+                return GestureDetector(
+                  onTap: () {
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(
+                      images[index],
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      errorBuilder: (
+                          context, error, stackTrace) => Center(
+                          child: Icon(Icons.broken_image)),
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+            ),
           ),
         ),
               ],
@@ -177,6 +194,7 @@ class _HomepageState extends State<Homepage> {
                 alignment: Alignment.centerLeft,
                 child: Text("Categories: ", style:
                   TextStyle(
+                    color: Color(0xFF56613A),
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),),
@@ -192,7 +210,7 @@ class _HomepageState extends State<Homepage> {
                   return Padding(
                     padding: const EdgeInsets.only(left: 10, top: 20, right: 10),
                     child: Card(
-                      color: Colors.black,
+                      color: Color(0xFF8A9A74),
                       elevation: 10,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)
                       ),

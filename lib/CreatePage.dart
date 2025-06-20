@@ -59,20 +59,20 @@ Future<void> SaveRecipe() async {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFFFF8F0),
         child: Column(
             children: [
               DrawerHeader(
-                decoration: BoxDecoration(color: Colors.black),
+                decoration: BoxDecoration(color: Color(0xFF8A9A74)),
                 child: Stack(
                   children: [
                     Center(
                       child: Image.asset('assets/cookBook.png',height: 80,),
 
+
                     ),
                   ],
                 ),
-
 
               ),
               Expanded(
@@ -81,18 +81,19 @@ Future<void> SaveRecipe() async {
                     ListTile(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> Allrecipepage()));
-
                       },
-                      leading: Icon(Icons.menu_book),
+                      leading: Icon(Icons.menu_book, color: Color(0xFF56613A),),
                       title: Text('All Recipes',style: TextStyle(
+                        color: Color(0xFF56613A),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),),
 
                     ),    ListTile(
                       onTap: () {},
-                      leading: Icon(Icons.favorite),
+                      leading: Icon(Icons.favorite, color: Color(0xFF56613A)),
                       title: Text('Favorites',style: TextStyle(
+                        color: Color(0xFF56613A),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -100,12 +101,13 @@ Future<void> SaveRecipe() async {
 
                     ),
                     ListTile(
-                      onTap: ()
-                      {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SupportPage()));
+                      onTap: () {
+                        Navigator.push(
+                            context, MaterialPageRoute(builder: (context)=> SupportPage()));
                       },
-                      leading: Icon(Icons.support_agent_sharp),
+                      leading: Icon(Icons.support_agent_sharp, color: Color(0xFF56613A)),
                       title: Text('Contact Us',style: TextStyle(
+                        color: Color(0xFF56613A),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),),
@@ -113,8 +115,9 @@ Future<void> SaveRecipe() async {
                     ),
                     ListTile(
                       onTap: (){},
-                      leading: Icon(Icons.settings),
+                      leading: Icon(Icons.settings, color: Color(0xFF56613A)),
                       title: Text('Settings',style: TextStyle(
+                        color: Color(0xFF56613A),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),),
@@ -131,7 +134,7 @@ Future<void> SaveRecipe() async {
       ),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white, size: 40),
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFF8A9A74),
         centerTitle: true,
         title: Text('Add a Taste of You',
           style: TextStyle(
@@ -140,7 +143,7 @@ Future<void> SaveRecipe() async {
             fontSize: 20,
           ),),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFFFF8F0),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -206,13 +209,16 @@ Future<void> SaveRecipe() async {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                dropdownColor: Colors.white,
+                dropdownColor: Color(0xFFFFF8F0),
 
                 value: selectedCategory,
                 items: categories.map((category) {
                   return DropdownMenuItem<String>(
                     value: category,
-                    child: Text(category),
+                    child: Text(category, style:
+                      TextStyle(
+                        color: Color(0xFF56613A),
+                      ),),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -238,7 +244,7 @@ Future<void> SaveRecipe() async {
                         await SaveRecipe();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: Color(0xFF8A9A74),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -263,7 +269,7 @@ Future<void> SaveRecipe() async {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        backgroundColor: Colors.black,
+                        backgroundColor: Color(0xFF8A9A74),
                       ),
                       child: Text("Clear",style: TextStyle(
                         color: Colors.white,

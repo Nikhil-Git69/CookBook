@@ -41,7 +41,7 @@ void clearField()
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFFFF8F0),
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: Colors.white,
@@ -52,7 +52,7 @@ void clearField()
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),),
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFF8A9A74),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -128,7 +128,7 @@ void clearField()
 
             },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Color(0xFF8A9A74),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -145,7 +145,7 @@ void clearField()
               padding: const EdgeInsets.all(20),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
+                  color: Color(0xFFD8E0C3),
                   borderRadius: BorderRadius.circular(20),
                 ),
 
@@ -159,7 +159,8 @@ void clearField()
                       padding: const EdgeInsets.all(10),
                       child: Text("Contact Info",style:
                       TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20
+                          color: Color(0xFF56613A),
+                          fontWeight: FontWeight.bold, fontSize: 20
                       ),
                       ),
                     ),
@@ -167,11 +168,11 @@ void clearField()
                       padding:  EdgeInsets.all(5),
                       child: Row(
                           children: [
-                            Icon(Icons.location_on, color: Colors.black),
+                            Icon(Icons.location_on, color: Color(0xFF56613A)),
                             SizedBox(width: 10),
                             Text("Devkota Sadak, Mid-Baneswor, Kathmandu",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color(0xFF56613A),
                               ),
                             ),
                           ]
@@ -182,11 +183,11 @@ void clearField()
                       padding:  EdgeInsets.all(5),
                       child: Row(
                           children: [
-                            Icon(Icons.phone, color: Colors.black),
+                            Icon(Icons.phone, color: Color(0xFF56613A)),
                             SizedBox(width: 10),
                             Text("Kathmandu: (+977) 9840633571",
                               style: TextStyle(
-                                color: Colors.black,
+                                  color: Color(0xFF56613A),
                               ),
                             ),
                           ]
@@ -196,11 +197,11 @@ void clearField()
                       padding: EdgeInsets.all(5),
                       child: Row(
                           children: [
-                            Icon(Icons.email, color: Colors.black),
+                            Icon(Icons.email, color: Color(0xFF56613A)),
                             SizedBox(width: 10),
                             Text("Nikhil.Nagarkoti021@ApexCollege.edu.np",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color(0xFF56613A),
                               ),
                             ),
                           ]

@@ -42,13 +42,14 @@
     @override
     Widget build(BuildContext context) {
       return Scaffold(
+        backgroundColor: Color(0xFFFFF8F0),
         appBar: AppBar(
           title: Text("Recipe Detail", style: TextStyle(
             color: Colors.white,
           ),),
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.white ),
-          backgroundColor: Colors.black,
+          backgroundColor: Color(0xFF8A9A74),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -59,7 +60,7 @@
                 child: Container(
                   height: 500,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade400,
+                    color: Color(0xFFD8E0C3),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SingleChildScrollView(
@@ -75,6 +76,7 @@
                             child: Text(
                               "Name: ${widget.recipedet.recipeName}",
                               style: TextStyle(
+                                color: Color(0xFF56613A),
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
 
@@ -88,7 +90,7 @@
                           child: Text(
                               "Category: [${widget.recipedet.category}]",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Color(0xFF56613A),
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold)),
                         ),
@@ -98,12 +100,14 @@
 
                         Text("Ingredients:",
                             style: TextStyle(
+                                color: Color(0xFF56613A),
                                 fontSize: 20, fontWeight: FontWeight.bold)),
 
                         Padding(
                           padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10,right: 10),
                           child: Text(widget.recipedet.ingredients,style:
                             TextStyle(
+                              color: Color(0xFF56613A),
                               fontSize: 16,
                             ),),
                         ),
@@ -114,11 +118,13 @@
 
                         Text("Instructions:",
                             style: TextStyle(
+                                color: Color(0xFF56613A),
                                 fontSize: 20, fontWeight: FontWeight.bold)),
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 10, top: 10,bottom: 20),
                           child: Text(widget.recipedet.instructions, style:
                             TextStyle(
+                              color: Color(0xFF56613A),
                               fontSize: 16,
                             ),),
                         ),
@@ -134,6 +140,7 @@
               Padding(
                 padding: const EdgeInsets.only(left: 50, right: 50),
                 child: Container(
+
                   width: double.infinity,
                   child: ElevatedButton(
 
@@ -141,7 +148,7 @@
 
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Color(0xFF8A9A74),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -180,7 +187,7 @@
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Color(0xFF8A9A74),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),

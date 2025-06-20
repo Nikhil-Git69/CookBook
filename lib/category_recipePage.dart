@@ -23,10 +23,10 @@ List<Recipe> catedRecipe = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+        backgroundColor: Color(0xFFFFF8F0),
+        appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white, size: 40),
-        backgroundColor: Colors.black,
+          backgroundColor: Color(0xFF8A9A74),
         centerTitle: true,
         title: Text(widget.cate,
           style: TextStyle(
@@ -64,6 +64,7 @@ List<Recipe> catedRecipe = [];
                 child: ListTile(
                   title: Center(
                     child: Text(recipe.recipeName,style: TextStyle(
+                      color: Color(0xFF56613A),
                         fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -80,9 +81,9 @@ List<Recipe> catedRecipe = [];
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => RecipeDetailPage(recipedet: recipe)));
                   } ,
-                      child: Icon(Icons.more_horiz)),
+                      child: Icon(Icons.more_horiz,color: Color(0xFF56613A),)),
 
-                  trailing: Icon(Icons.favorite),
+                  trailing: Icon(Icons.favorite, color: Color(0xFF56613A),),
                 ),
               ),
             );

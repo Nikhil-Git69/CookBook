@@ -19,10 +19,10 @@ class _AllrecipepageState extends State<Allrecipepage> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFFFF8F0),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white, size: 40),
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFF8A9A74),
         centerTitle: true,
         title: Text('All Recipes',
           style: TextStyle(
@@ -48,7 +48,7 @@ class _AllrecipepageState extends State<Allrecipepage> {
          return Padding(
              padding: EdgeInsets.all(10),
            child: Card(
-             color: Colors.white60,
+             color: Color(0xFF8A9A74),
              elevation: 20,
              shape: RoundedRectangleBorder(
                borderRadius: BorderRadius.circular(15),
@@ -56,15 +56,16 @@ class _AllrecipepageState extends State<Allrecipepage> {
              child: ListTile(
                title: Center(
                  child: Text(recipe!.recipeName,style: TextStyle(
+                   color: Colors.white,
                      fontWeight: FontWeight.bold),
                  ),
                ),
                subtitle: Center(
                  child: Text(
-                   recipe.category,
+                   '[${recipe.category}]',
                    style: TextStyle(
-                     fontSize: 14,
-                     color: Colors.grey[800],
+                     fontSize: 16,
+                     color: Colors.white70,
                    ),
                  ),
                ),
@@ -72,9 +73,9 @@ class _AllrecipepageState extends State<Allrecipepage> {
                  Navigator.push(context, MaterialPageRoute(
                      builder: (context) => RecipeDetailPage(recipedet: recipe)));
                } ,
-                   child: Icon(Icons.more_horiz)),
+                   child: Icon(Icons.more_horiz, color: Colors.white,)),
 
-               trailing: Icon(Icons.favorite),
+               trailing: Icon(Icons.favorite, color: Color(0xFF56613A),),
 
              ),
            ),

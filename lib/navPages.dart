@@ -27,11 +27,11 @@ class _navPagesState extends State<navPages> {
       body: IndexedStack(index: _currentIndex, children: pages),
 
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFF8A9A74),
         currentIndex: _currentIndex,
         onTap: _onNavPageTapped,
         selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.white60,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.house), label: "Home", ),
           BottomNavigationBarItem(icon: Icon(Icons.fastfood), label: "Create Recipe",),
