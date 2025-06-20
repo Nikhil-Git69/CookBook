@@ -1,7 +1,9 @@
+import 'package:cookbook/support_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'recipeModel.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'allRecipePage.dart';
 
 class createPage extends StatefulWidget {
   const createPage({super.key});
@@ -77,7 +79,10 @@ Future<void> SaveRecipe() async {
                 child: ListView(
                   children: [
                     ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Allrecipepage()));
+
+                      },
                       leading: Icon(Icons.menu_book),
                       title: Text('All Recipes',style: TextStyle(
                         fontSize: 20,
@@ -95,7 +100,10 @@ Future<void> SaveRecipe() async {
 
                     ),
                     ListTile(
-                      onTap: () {},
+                      onTap: ()
+                      {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SupportPage()));
+                      },
                       leading: Icon(Icons.support_agent_sharp),
                       title: Text('Contact Us',style: TextStyle(
                         fontSize: 20,
@@ -146,7 +154,6 @@ Future<void> SaveRecipe() async {
                 decoration: InputDecoration(
                     alignLabelWithHint: true,
                     label: Text('Recipe Name'),
-                    hintText: 'Enter your Recipe Name',
                     border:OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     )
@@ -158,10 +165,11 @@ Future<void> SaveRecipe() async {
               child: TextFormField(
                 controller: ingredientsController,
                 keyboardType: TextInputType.name,
+                maxLines: 3,
                 decoration: InputDecoration(
                   alignLabelWithHint: true,
                   label: Text('Recipe Ingredients'),
-                  hintText: 'Enter your Recipe Ingredients',
+
                   border:OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   )
@@ -178,7 +186,7 @@ Future<void> SaveRecipe() async {
         
                   alignLabelWithHint: true,
                   label: Text('Instructions'),
-                  hintText: 'Enter Your Recipe Instructions..',
+
                   border:OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
         
@@ -224,10 +232,10 @@ Future<void> SaveRecipe() async {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-
+                    
                       onPressed: () async
                       {
-
+                        await SaveRecipe();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.black,
@@ -242,7 +250,9 @@ Future<void> SaveRecipe() async {
                       ),),
                     ),
                   ),
-                  SizedBox(width: 20),
+
+                 SizedBox(width: 30,),
+
                   Expanded(
                     child: ElevatedButton(
                       onPressed: ()

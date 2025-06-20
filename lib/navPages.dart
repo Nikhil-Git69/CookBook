@@ -33,7 +33,7 @@ class _navPagesState extends State<navPages> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.house), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.house), label: "Home", ),
           BottomNavigationBarItem(icon: Icon(Icons.fastfood), label: "Create Recipe",),
 
         ],
