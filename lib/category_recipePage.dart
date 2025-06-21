@@ -15,7 +15,7 @@ class CategoryRecipePage extends StatefulWidget {
 class _CategoryRecipePageState extends State<CategoryRecipePage> {
   var box = Hive.box<Recipe>('Rbox');
 
-List<Recipe> catedRecipe = [];
+  List<dynamic> catedRecipeKeys = [];
 
 
 
@@ -41,9 +41,11 @@ List<Recipe> catedRecipe = [];
         valueListenable: box.listenable(),
     builder: (context, Box<Recipe> recipeBox, _) {
 
-          catedRecipe = box.values.where((recipe) => recipe.category == widget.cate ).toList();
+      catedRecipeKeys = box.keys.where((key) {final recipe = box.get(key);
+        return recipe != null && recipe.category == widget.cate;
+      }).toList();
 
-    if (catedRecipe.isEmpty) {
+    if (catedRecipeKeys.isEmpty) {
     return Center(child: Text('No ${widget.cate} recipes available.',style:
       TextStyle(
         color: Color(0xFF56613A),
@@ -56,9 +58,11 @@ List<Recipe> catedRecipe = [];
         padding: const EdgeInsets.all(10),
         child: ListView.builder(
 
-            itemCount: catedRecipe.length,
+            itemCount: catedRecipeKeys.length,
             itemBuilder: (context, index) {
-              final recipe = catedRecipe[index];
+              final key = catedRecipeKeys[index];
+              final recipe = box.get(key);
+
 
               return Padding(
                 padding: const EdgeInsets.all(10),
@@ -70,7 +74,7 @@ List<Recipe> catedRecipe = [];
                   ),
                   child: ListTile(
                     title: Center(
-                      child: Text(recipe.recipeName,style: TextStyle(
+                      child: Text(recipe!.recipeName,style: TextStyle(
                         color: Color(0xFF56613A),
                           fontWeight: FontWeight.bold),
                       ),
@@ -85,9 +89,8 @@ List<Recipe> catedRecipe = [];
                       ),
                     ),
                     leading: GestureDetector(onTap: (){
-                      final recipeKey = box.keyAt(index);
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => RecipeDetailPage(recipedet: recipe, recipeKey: recipeKey,)));
+                      final recipeKey = box.keyAt(index); Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => RecipeDetailPage(recipedet: recipe, recipeKey: key,)));
                     } ,
                         child: Icon(Icons.more_horiz,color: Color(0xFF56613A),)),
 

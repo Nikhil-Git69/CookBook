@@ -186,7 +186,7 @@ void clearField()
                           children: [
                             Icon(Icons.phone, color: Color(0xFF56613A)),
                             SizedBox(width: 10),
-                            Text("Kathmandu: (+977) 9840633571",
+                            Text("Kathmandu: (+977) 0000000001",
                               style: TextStyle(
                                   color: Color(0xFF56613A),
                               ),
@@ -200,7 +200,7 @@ void clearField()
                           children: [
                             Icon(Icons.email, color: Color(0xFF56613A)),
                             SizedBox(width: 10),
-                            Text("Nikhil.Nagarkoti021@ApexCollege.edu.np",
+                            Text("Info@Xpermail.com",
                               style: TextStyle(
                                 color: Color(0xFF56613A),
                               ),

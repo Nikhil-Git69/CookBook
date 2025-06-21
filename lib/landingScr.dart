@@ -12,14 +12,10 @@ class _landingScrState extends State<landingScr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      backgroundColor: Color(0xFF8A9A74),
+      body: Column(
         children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/NewBG.jpeg',
-              fit: BoxFit.cover,
-            ),
-          ),
+
 
           Column(
             children: [

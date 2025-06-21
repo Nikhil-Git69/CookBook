@@ -14,7 +14,7 @@ class FavPage extends StatefulWidget {
 class _FavPageState extends State<FavPage> {
   final  box = Hive.box<Recipe>('Rbox');
 
-  List<Recipe> favRecipe = [];
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,14 @@ class _FavPageState extends State<FavPage> {
       body: ValueListenableBuilder(
           valueListenable: box.listenable(),
           builder: (context, Box<Recipe> recipeBox, _){
-            favRecipe = box.values.where((recipe) => recipe.isFavorite == true).toList();
+            final favRecipeKeys = box.keys.where((key) {
+            final recipe = box.get(key);
+              return recipe != null && recipe.isFavorite == true;
+            }).toList();
 
-            if (favRecipe.isEmpty) {
+
+
+            if (favRecipeKeys.isEmpty) {
               return Center(child: Text('No favorite recipe availabe',style:
               TextStyle(
                 color: Color(0xFF56613A),
@@ -49,10 +54,10 @@ class _FavPageState extends State<FavPage> {
             return Padding(
               padding: const EdgeInsets.all(10),
               child: ListView.builder(
-                itemCount: favRecipe.length,
+                itemCount: favRecipeKeys.length,
                 itemBuilder: (context, index) {
-                  final recipe = favRecipe[index];
-
+                  final recipeKey = favRecipeKeys[index];
+                  final recipe = box.get(recipeKey)!;
                   return Padding(
                     padding: const EdgeInsets.all(10),
                     child: Card(
@@ -65,7 +70,7 @@ class _FavPageState extends State<FavPage> {
                         subtitle: Center(child: Text('[${recipe.category}]')),
 
                         leading: GestureDetector(onTap: (){
-                    final recipeKey = box.keyAt(index);
+
                     Navigator.push(context, MaterialPageRoute(
                     builder: (context) => RecipeDetailPage(recipedet: recipe, recipeKey: recipeKey,)));
                     } ,
