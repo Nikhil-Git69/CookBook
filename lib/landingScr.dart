@@ -16,7 +16,7 @@ class _landingScrState extends State<landingScr> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/cookBookBG.png',
+              'assets/NewBG.jpeg',
               fit: BoxFit.cover,
             ),
           ),

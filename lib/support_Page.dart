@@ -45,6 +45,7 @@ void clearField()
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: Colors.white,
+            size: 40,
         ),
         centerTitle: true,
         title: Text("Contact Us",

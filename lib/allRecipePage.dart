@@ -12,7 +12,7 @@ class Allrecipepage extends StatefulWidget {
 }
 
 class _AllrecipepageState extends State<Allrecipepage> {
-  final Box<Recipe> box = Hive.box<Recipe>('Rbox');
+  final  box = Hive.box<Recipe>('Rbox');
 
 
   @override
@@ -36,53 +36,73 @@ class _AllrecipepageState extends State<Allrecipepage> {
         valueListenable: box.listenable(),
             builder: (context, Box<Recipe> recipeBox, _) {
           if (recipeBox.isEmpty) {
-        return Center(child: Text('No recipes added yet.'));
-    }
+        return Center(child: Text('No recipes added yet.', style: TextStyle(
+          color: Color(0xFF56613A),
+          fontSize: 18,
+        ),
+        ));
+            }
 
-   return ListView.builder(
-        itemCount: recipeBox.length,
-       itemBuilder: (context,index)
-       {
-         final recipe = recipeBox.getAt(index);
+               return Padding(
+             padding: const EdgeInsets.all(10),
+             child: ListView.builder(
+          itemCount: recipeBox.length,
+         itemBuilder: (context,index)
+         {
+           final recipe = recipeBox.getAt(index);
 
-         return Padding(
-             padding: EdgeInsets.all(10),
-           child: Card(
-             color: Color(0xFF8A9A74),
-             elevation: 20,
-             shape: RoundedRectangleBorder(
-               borderRadius: BorderRadius.circular(15),
-             ),
-             child: ListTile(
-               title: Center(
-                 child: Text(recipe!.recipeName,style: TextStyle(
-                   color: Colors.white,
-                     fontWeight: FontWeight.bold),
-                 ),
+           return Padding(
+               padding: EdgeInsets.all(10),
+             child: Card(
+               // color: Color(0xFF8A9A74),
+               color: Colors.white60,
+               elevation: 20,
+               shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.circular(15),
                ),
-               subtitle: Center(
-                 child: Text(
-                   '[${recipe.category}]',
-                   style: TextStyle(
-                     fontSize: 16,
-                     color: Colors.white70,
+               child: ListTile(
+                 title: Center(
+                   child: Text(recipe!.recipeName,style: TextStyle(
+                     color: Color(0xFF56613A),
+                       fontWeight: FontWeight.bold),
                    ),
                  ),
+                 subtitle: Center(
+                   child: Text(
+                     '[${recipe.category}]',
+                     style: TextStyle(
+                       fontSize: 16,
+                       color: Color(0xFF56613A),
+                     ),
+                   ),
+                 ),
+                 leading: GestureDetector(onTap: (){
+                   final recipeKey = box.keyAt(index);
+                   Navigator.push(context, MaterialPageRoute(
+                       builder: (context) => RecipeDetailPage(recipedet: recipe, recipeKey: recipeKey,)));
+                 } ,
+                     child: Icon(Icons.more_horiz, color: Color(0xFF56613A),)),
+
+                 trailing: GestureDetector(
+                     onTap: ()
+                     {
+                       setState(() {
+                         recipe.isFavorite = !recipe.isFavorite;
+                         recipe.save();
+                       });
+                     },
+                     child: Icon(recipe.isFavorite? Icons.favorite: Icons.favorite_outline_outlined,
+                       color: recipe.isFavorite ? Color(0xFF56613A) : Colors.grey,),
+
+                 ),
+
                ),
-               leading: GestureDetector(onTap: (){
-                 Navigator.push(context, MaterialPageRoute(
-                     builder: (context) => RecipeDetailPage(recipedet: recipe)));
-               } ,
-                   child: Icon(Icons.more_horiz, color: Colors.white,)),
-
-               trailing: Icon(Icons.favorite, color: Color(0xFF56613A),),
-
              ),
-           ),
-         );
-       }
-   );
-    })
+           );
+         }
+             ),
+               );
+            })
     );
   }
 }

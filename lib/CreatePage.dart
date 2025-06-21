@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'recipeModel.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'allRecipePage.dart';
+import 'package:cookbook/allRecipePage.dart';
+import 'package:cookbook/fav_page.dart';
+
+
 
 class createPage extends StatefulWidget {
   const createPage({super.key});
@@ -90,7 +93,10 @@ Future<void> SaveRecipe() async {
                       ),),
 
                     ),    ListTile(
-                      onTap: () {},
+                      onTap: ()
+                      {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => FavPage()));
+                      },
                       leading: Icon(Icons.favorite, color: Color(0xFF56613A)),
                       title: Text('Favorites',style: TextStyle(
                         color: Color(0xFF56613A),
@@ -154,11 +160,13 @@ Future<void> SaveRecipe() async {
               child: TextFormField(
                 controller: recipeNameController,
                 keyboardType: TextInputType.name,
+                style: TextStyle(color: Color(0xFF56613A)),
                 decoration: InputDecoration(
                     alignLabelWithHint: true,
                     label: Text('Recipe Name'),
                     border:OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(color: Color(0xFF56613A)),
                     )
                 ),
               ),
@@ -168,6 +176,7 @@ Future<void> SaveRecipe() async {
               child: TextFormField(
                 controller: ingredientsController,
                 keyboardType: TextInputType.name,
+                style: TextStyle(color: Color(0xFF56613A)),
                 maxLines: 3,
                 decoration: InputDecoration(
                   alignLabelWithHint: true,
@@ -175,6 +184,8 @@ Future<void> SaveRecipe() async {
 
                   border:OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Color(0xFF56613A)),
+
                   )
                 ),
               ),
@@ -184,6 +195,7 @@ Future<void> SaveRecipe() async {
               child: TextFormField(
                 controller: instructionsController,
                 keyboardType: TextInputType.name,
+                style: TextStyle(color: Color(0xFF56613A)),
                 maxLines: 5,
                 decoration: InputDecoration(
         
@@ -192,6 +204,7 @@ Future<void> SaveRecipe() async {
 
                   border:OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Color(0xFF56613A)),
         
                   )
                 ),

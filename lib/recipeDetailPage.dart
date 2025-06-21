@@ -2,12 +2,16 @@
   import 'package:cookbook/recipeModel.dart';
   import 'package:hive_flutter/hive_flutter.dart';
   import 'package:fluttertoast/fluttertoast.dart';
+  import 'package:cookbook/edit_page.dart';
 
   class RecipeDetailPage extends StatefulWidget {
 
     final Recipe recipedet;
 
-    const RecipeDetailPage({super.key, required this.recipedet});
+    final int recipeKey;
+
+
+    const RecipeDetailPage({super.key, required this.recipedet, required this.recipeKey});
 
     @override
     State<RecipeDetailPage> createState() => _RecipeDetailPageState();
@@ -18,29 +22,62 @@
 
     var box = Hive.box<Recipe>('Rbox');
 
-    Future<void> DeleteRecipe(Recipe recipedet) async {
-      final KeytoDelete = box.keys.firstWhere((key) => box.get(key) == recipedet,
-        orElse: () => null,
+
+
+
+    Future<void> DeleteRecipe(int keyToDelete) async {
+      try {
+        await box.delete(keyToDelete);
+        Fluttertoast.showToast(msg: "Recipe Deleted");
+      } catch (e) {
+        Fluttertoast.showToast(msg: "Error ");
+      }
+    }
+
+    Future<bool?>DeleteDialog () async {
+     return showDialog(context: context,
+          barrierDismissible: false,
+          builder: (_) => AlertDialog(
+            title: Text("CONFIRM DELETE"),
+            content: Text("Do you really wish to delete this recipe?"),
+            actions: [
+
+              ElevatedButton(onPressed: () async
+              {
+                Navigator.pop(context, true);
+              },
+                  child: Text("Yes")),
+
+              ElevatedButton(onPressed: ()
+              {
+                Navigator.pop(context);
+              },
+                  child: Text("No")),
+            ],
+
+          )
       );
-
-      if (KeytoDelete != null)
-        {
-          await box.delete(KeytoDelete);
-
-          Fluttertoast.showToast(msg: "Recipe Deleted");
-
-
-        }
-      else
-        {
-
-          Fluttertoast.showToast(msg: "Recipe Not found");
-        }
-
     }
 
     @override
     Widget build(BuildContext context) {
+      final Recipe? recipe = box.get(widget.recipeKey);
+
+      if (recipe == null) {
+        return Scaffold(
+
+          appBar: AppBar(
+            title: Text("Recipe Detail", style: TextStyle(
+              color: Colors.white,
+            ),),
+            centerTitle: true,
+            iconTheme: IconThemeData(color: Colors.white, size: 40 ),
+            backgroundColor: Color(0xFF8A9A74),
+          ),
+          body: Center(child: Text("Recipe not found")),
+        );
+      }
+
       return Scaffold(
         backgroundColor: Color(0xFFFFF8F0),
         appBar: AppBar(
@@ -48,7 +85,7 @@
             color: Colors.white,
           ),),
           centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.white ),
+          iconTheme: IconThemeData(color: Colors.white, size: 40 ),
           backgroundColor: Color(0xFF8A9A74),
         ),
         body: SingleChildScrollView(
@@ -60,7 +97,7 @@
                 child: Container(
                   height: 500,
                   decoration: BoxDecoration(
-                    color: Color(0xFFD8E0C3),
+                    color: Color(0xFF8A9A74),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SingleChildScrollView(
@@ -74,9 +111,9 @@
                           child: Padding(
                             padding: const EdgeInsets.only(top: 20,left: 20, right: 20, bottom: 5),
                             child: Text(
-                              "Name: ${widget.recipedet.recipeName}",
+                              "Name: ${recipe.recipeName}",
                               style: TextStyle(
-                                color: Color(0xFF56613A),
+                                color: Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
 
@@ -88,9 +125,9 @@
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20, ),
                           child: Text(
-                              "Category: [${widget.recipedet.category}]",
+                              "Category: [${recipe.category}]",
                               style: TextStyle(
-                                  color: Color(0xFF56613A),
+                                  color: Colors.white,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold)),
                         ),
@@ -100,15 +137,15 @@
 
                         Text("Ingredients:",
                             style: TextStyle(
-                                color: Color(0xFF56613A),
+                                color: Colors.white,
                                 fontSize: 20, fontWeight: FontWeight.bold)),
 
                         Padding(
                           padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10,right: 10),
-                          child: Text(widget.recipedet.ingredients,style:
+                          child: Text(recipe.ingredients,style:
                             TextStyle(
-                              color: Color(0xFF56613A),
-                              fontSize: 16,
+                              color: Colors.white,
+                              fontSize: 18,
                             ),),
                         ),
 
@@ -118,14 +155,14 @@
 
                         Text("Instructions:",
                             style: TextStyle(
-                                color: Color(0xFF56613A),
+                                color: Colors.white,
                                 fontSize: 20, fontWeight: FontWeight.bold)),
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 10, top: 10,bottom: 20),
-                          child: Text(widget.recipedet.instructions, style:
+                          child: Text(recipe.instructions, style:
                             TextStyle(
-                              color: Color(0xFF56613A),
-                              fontSize: 16,
+                              color: Colors.white,
+                              fontSize: 18,
                             ),),
                         ),
                       ],
@@ -144,8 +181,12 @@
                   width: double.infinity,
                   child: ElevatedButton(
 
-                    onPressed: () {
+                    onPressed: () async {
 
+                     await Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => EditPage(recipeKey: widget.recipeKey, recipe: recipe)),
+                     );
+                     setState(() {});
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF8A9A74),
@@ -170,21 +211,15 @@
                   child: ElevatedButton(
 
                     onPressed: () async{
-                      showDialog(context: context,
-                          barrierDismissible: false,
-                          builder: (builder)=>Center(child: CircularProgressIndicator()),
-                      );
-                      await Future.delayed(Duration(milliseconds: 100));
+                      final confirm = await DeleteDialog();
 
-                      await DeleteRecipe(widget.recipedet);
+                      if (confirm ==true)
+                        {
+                          await DeleteRecipe(widget.recipeKey);
+                          setState(() {});
+                          if (mounted) Navigator.pop(context);
+                        }
 
-
-                      if (Navigator.canPop(context)) {
-                        Navigator.pop(context);
-                      }
-                      if (Navigator.canPop(context)) {
-                        Navigator.pop(context);
-                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF8A9A74),

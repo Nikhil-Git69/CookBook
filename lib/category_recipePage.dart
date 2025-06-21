@@ -44,51 +44,71 @@ List<Recipe> catedRecipe = [];
           catedRecipe = box.values.where((recipe) => recipe.category == widget.cate ).toList();
 
     if (catedRecipe.isEmpty) {
-    return Center(child: Text('No ${widget.cate} recipes available.'));
+    return Center(child: Text('No ${widget.cate} recipes available.',style:
+      TextStyle(
+        color: Color(0xFF56613A),
+        fontSize: 18,
+      ),
+    ));
     }
 
-      return ListView.builder(
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: ListView.builder(
 
-          itemCount: catedRecipe.length,
-          itemBuilder: (context, index) {
-            final recipe = catedRecipe[index];
+            itemCount: catedRecipe.length,
+            itemBuilder: (context, index) {
+              final recipe = catedRecipe[index];
 
-            return Padding(
-              padding: const EdgeInsets.all(10),
-              child: Card(
-                color: Colors.white60,
-              elevation: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: ListTile(
-                  title: Center(
-                    child: Text(recipe.recipeName,style: TextStyle(
-                      color: Color(0xFF56613A),
-                        fontWeight: FontWeight.bold),
-                    ),
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  color: Colors.white60,
+                elevation: 20,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                  subtitle: Center(
-                    child: Text(
-                      recipe.category,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[800],
+                  child: ListTile(
+                    title: Center(
+                      child: Text(recipe.recipeName,style: TextStyle(
+                        color: Color(0xFF56613A),
+                          fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ),
-                  leading: GestureDetector(onTap: (){
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => RecipeDetailPage(recipedet: recipe)));
-                  } ,
-                      child: Icon(Icons.more_horiz,color: Color(0xFF56613A),)),
+                    subtitle: Center(
+                      child: Text(
+                        recipe.category,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                    ),
+                    leading: GestureDetector(onTap: (){
+                      final recipeKey = box.keyAt(index);
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => RecipeDetailPage(recipedet: recipe, recipeKey: recipeKey,)));
+                    } ,
+                        child: Icon(Icons.more_horiz,color: Color(0xFF56613A),)),
 
-                  trailing: Icon(Icons.favorite, color: Color(0xFF56613A),),
+                    trailing: GestureDetector(
+                      onTap: ()
+                      {
+                        setState(() {
+                          recipe.isFavorite = !recipe.isFavorite;
+                          recipe.save();
+                        });
+                      },
+                      child: Icon(recipe.isFavorite? Icons.favorite: Icons.favorite_outline_outlined,
+                        color: recipe.isFavorite ? Color(0xFF56613A) : Colors.grey,),
+
+                    ),
+                  ),
                 ),
-              ),
-            );
-          }
-          );
+              );
+            }
+            ),
+      );
   })
     );
   }

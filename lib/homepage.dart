@@ -1,3 +1,4 @@
+import 'package:cookbook/fav_page.dart';
 import 'package:cookbook/support_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -77,7 +78,10 @@ class _HomepageState extends State<Homepage> {
                       ),),
 
                     ),    ListTile(
-                      onTap: () {},
+                      onTap: ()
+                      {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => FavPage()));
+                      },
                       leading: Icon(Icons.favorite, color: Color(0xFF56613A)),
                       title: Text('Favorites',style: TextStyle(
                         color: Color(0xFF56613A),
@@ -140,7 +144,7 @@ class _HomepageState extends State<Homepage> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 220,
+                  height: 200,
                   decoration: BoxDecoration(
                     color: Color(0xFF8A9A74),
                     borderRadius: BorderRadius.only(
@@ -163,7 +167,7 @@ class _HomepageState extends State<Homepage> {
                 aspectRatio:16 / 9,
                 enlargeCenterPage: true,
                 autoPlay: true,
-                viewportFraction: 0.7,
+                viewportFraction: 0.8,
               ),
               items: List.generate(images.length, (index) {
                 return GestureDetector(
