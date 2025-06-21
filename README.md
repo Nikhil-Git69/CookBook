@@ -40,5 +40,10 @@
   - Backup recipes to cloud (e.g., Firebase)  
   - Multi-device access(Maybe)
 ---
+## DEMO Video:
+[![Demo Video](https://img.youtube.com/vi/-ns5uo-e4DM/0.jpg)](https://www.youtube.com/watch?v=-ns5uo-e4DM)
+
+
+---
   *By Nikhil*
 ---
